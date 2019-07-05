@@ -45,5 +45,7 @@
         /// This is an extension that will branch to different pipes
         /// </summary>
         public List<Func<IOcelotPipelineBuilder, Func<DownstreamContext, bool>>> MapWhenOcelotPipeline { get; } = new List<Func<IOcelotPipelineBuilder, Func<DownstreamContext, bool>>>();
+
+        public Func<DownstreamContext, Func<Task>, Task> BackendRouteBuilderMiddleware { get; set; }
     }
 }

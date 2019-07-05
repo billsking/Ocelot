@@ -24,7 +24,7 @@ namespace Ocelot.Request.Middleware
 
         public HttpRequestHeaders Headers { get; }
 
-        public string Method { get; }
+        public string Method { get; set; }
 
         public string OriginalString { get; }
 
@@ -48,10 +48,20 @@ namespace Ocelot.Request.Middleware
                 Host = Host,
                 Path = AbsolutePath,
                 Query = RemoveLeadingQuestionMark(Query),
-                Scheme = Scheme
+                Scheme = Scheme,
             };
 
             _request.RequestUri = uriBuilder.Uri;
+            switch (Method)
+            {
+                case "GET":
+                    _request.Method = HttpMethod.Get;
+                    break;
+                case "POST":
+                    _request.Method = HttpMethod.Post;
+                    break;
+            }
+
             return _request;
         }
 

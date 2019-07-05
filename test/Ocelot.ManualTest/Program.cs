@@ -61,7 +61,9 @@ namespace Ocelot.ManualTest
                 .UseIISIntegration()
                 .Configure(app =>
                 {
-                    app.UseOcelot().Wait();
+                    var configuration = new OcelotPipelineConfiguration();
+                    configuration.BackendRouteBuilderMiddleware = BackendRouteBuilderMiddleware.Invoke;
+                    app.UseOcelot(configuration).Wait();
                 })
                 .Build()
                 .Run();

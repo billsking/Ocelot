@@ -128,6 +128,9 @@ namespace Ocelot.Middleware.Pipeline
             // as the basis for our cache key.
             builder.UseOutputCacheMiddleware();
 
+            //后端路由中间件
+            builder.UseIfNotNull(pipelineConfiguration.BackendRouteBuilderMiddleware);
+
             //We fire off the request and set the response on the scoped data repo
             builder.UseHttpRequesterMiddleware();
 
